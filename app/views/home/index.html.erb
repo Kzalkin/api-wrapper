@@ -1,0 +1,12 @@
+<%= @summary %>
+<%= @updated %>
+<% @top_regions.each do |region| %>
+    <%= region["region"] %>
+    <%= region["cases"] %>
+    <%= region["recovered"] %>
+    <%= region["deaths"] %>
+<% end %>
+
+<%= @timeline %>
+
+<%= @facility_summary %>
