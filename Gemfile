@@ -61,3 +61,5 @@ gem 'net-imap', require: false
 
 gem 'net-pop', require: false
 gem "faraday", "~> 2.3"
+
+gem 'chartkick'

@@ -1,0 +1,75 @@
+<div class="cases">
+  <div class="sidebar">
+    <%= image_tag "covid.png", class: "covid" %>
+    <ul>
+      <li>
+        <%= link_to root_path do %>
+          <%= image_tag "dashboard.png" %>
+        <% end %>
+      </li>
+      <li>
+        <%= link_to cases_path do %>
+          <%= image_tag "cases-selected.png", class: "selected" %>
+        <% end %>
+      </li>
+      <li>
+        <%= link_to info_index_path do %>
+          <%= image_tag "info.png" %>
+        <% end %>
+      </li>
+    </ul>
+    <%= image_tag "phone.png", class: "phone"%>
+  </div>
+  <section>
+    <div class="left">
+      <header>
+        <nav>
+          <div class="title">
+            Cases
+          </div>
+          <div class="date">
+            Updated as of March 2021
+          </div>
+        </nav>
+      </header>
+      <main>
+        <div class="charts">
+          <div class="chart">
+            <div class="label">
+              <div class="title">Total Cases</div>
+              <div class="data"><%= number_with_delimiter(@summary["total"]) %></div>
+            </div>
+            <%= area_chart @cases, points: false, curve: true, xmin: "2021-03-01", xmax: "2021-03-31", colors: ["#f0375a"], library: {scales: {y: {display: false}, x: {display: false}}}, height: "150px" %>
+          </div>
+          <div class="chart">
+            <div class="label">
+              <div class="title">Recovered</div>
+              <div class="data"><%= number_with_delimiter(@summary["recoveries"]) %></div>
+            </div>
+            <%= area_chart @recovered, points: false, curve: true, xmin: "2021-03-01", xmax: "2021-03-31", colors: ["#f0375a"], library: {scales: {y: {display: false}, x: {display: false}}}, height: "150px" %>
+          </div>
+          <div class="chart">
+            <div class="label">
+              <div class="title">Deaths</div>
+              <div class="data"><%= number_with_delimiter(@summary["deaths"]) %></div>
+            </div>
+            <%= area_chart @died, points: false, curve: true, xmin: "2021-03-01", xmax: "2021-03-31", colors: ["#f0375a"], library: {scales: {y: {display: false}, x: {display: false}}}, height: "150px" %>
+          </div>
+        </div>
+      </main>
+    </div>
+    <div class="right">
+        <div class="title">Top Regions</div>
+        <div class="box">
+          <% @transformed_regions_data.each do |region| %>
+            <div class="card">
+              <span class="title"><%= region[:region] %></span>
+              <div class="top-region-summary">
+                <%= bar_chart region[:data], stacked: true, library: {plugins: {legend: {position: "bottom", labels: {usePointStyle: true, boxWidth: 10}}},scales: {y: {display: false}, x: {display: false}}}, height: "80px", colors: ["grey", "#f0375a", "#808080"] %>
+              </div>
+            </div>
+          <% end %>
+        </div>
+    </div>
+  </section>
+</div>

@@ -1,0 +1,91 @@
+<div class="info">
+  <div class="sidebar">
+    <%= image_tag "covid.png", class: "covid" %>
+    <ul>
+      <li>
+        <%= link_to root_path do %>
+          <%= image_tag "dashboard.png" %>
+        <% end %>
+      </li>
+      <li>
+        <%= link_to cases_path do %>
+          <%= image_tag "cases.png" %>
+        <% end %>
+      </li>
+      <li>
+        <%= link_to info_index_path do %>
+          <%= image_tag "info-selected.png", class: "selected" %>
+        <% end %>
+      </li>
+    </ul>
+    <%= image_tag "phone.png", class: "phone"%>
+  </div>
+  <section>
+    <div class="left">
+      <div class="title">What is COVID?</div>
+      <div class="answer">Coronavirus disease (COVID-19) is an infectious disease caused by the SARS-CoV-2 virus.
+        Most people who fall sick with COVID-19 will experience mild to moderate symptoms and recover without special treatment. However, some will become seriously ill and require medical attention.</div>
+      <div class="title">How it spreads</div>
+      <div class="answer">The virus can spread from an infected person’s mouth or nose in small liquid particles when they cough, sneeze, speak, sing or breathe. These particles range from larger respiratory droplets to smaller aerosols.
+        You can be infected by breathing in the virus if you are near someone who has COVID-19, or by touching a contaminated surface and then your eyes, nose or mouth. The virus spreads more easily indoors and in crowded settings.</div>
+      <div class="title">Types of COVID-19 Tests</div>
+      <div class="answer">COVID-19 tests can detect either SARS-CoV-2 or biomarkers of SARS-CoV-2, the virus that causes COVID-19, or antibodies that your body makes after getting COVID-19 or after getting vaccinated.</div>
+      <div class="box">
+        <div class="viral-test">
+          <div class="title">Viral Tests</div>
+          <div class="answer">A viral test tells you if you are infected with SARS-CoV-2, the virus that causes COVID-19, using samples that come from your nose or mouth. There are two types of viral tests: rapid tests and laboratory tests. COVID-19 testing is one of many risk-reduction measures, along with vaccination, masking, and physical distancing, that protect you and others by reducing the chances of spreading COVID-19.</div>
+          <ul>
+            <li><span>Rapid Point-of-Care tests</span>, test performed or interpreted by someone other than the individual being tested, can be performed in minutes and can include antigen tests, some NAATs, and other tests.</li>
+            <span class="dash">-Self-tests are rapid tests that can be taken at home or anywhere, are easy to use, and produce rapid results.</span>
+            <li><span>Laboratory tests</span>can take days to complete and include RT-PCR and other types of NAATs.</li>
+          </ul>
+        </div>
+        <div class="antibody-test">
+          <div class="title">Antibody Tests</div>
+          <div class="answer">An antibody test (also known as a serology test) can detect antibodies to SARS-CoV-2 in your blood. Antibodies are proteins that your immune system makes to help fight infection and protect you from getting sick in the future.
+            Antibody tests should not be used to diagnose a current infection, but they may indicate if you had a past infection. Antibody tests help learn about how human immune systems defend against the virus, as well as learn about population-level protection. If you get an antibody test after receiving a vaccine, you might test positive by some (but not all) antibody tests. This depends on which type of antibody the specific test detects.
+            <br>
+            <br>
+            Antibody testing is not currently recommended to determine:
+          </div>
+          <ul>
+            <li>If you have a current infection.</li>
+            <li>If you have immunity to SARS-CoV-2 following COVID-19 vaccination.</li>
+            <li>Whether you need to get a booster following COVID-19 vaccination.</li>
+            <li>Whether you need to quarantine after a known or suspected exposure to COVID-19.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="right">
+      <div class="facility-summary">
+        <header>Facilities</header>
+        <div class="total">
+          <div class="title">Total</div>
+          <div class="data"><%= number_with_delimiter(@facility_summary["total_facilities"]) %></div>
+        </div>
+        <div class="occupancy">
+          <div class="title">Occupancy Rate</div>
+          <div class="data"><%= number_to_percentage(@facility_summary["occupancy_rate"], precision: 2) %></div>
+        </div>
+      </div>
+      <div class="box vents">
+        <div class="title">Ventilators for COVID cases</div>
+        <%= bar_chart @ventilators, stacked: true, library: {plugins: {legend: {position: "bottom", labels: {usePointStyle: true, boxWidth: 10}}}, scales: {y: {display: true}, x: {display: false}}}, height: "100px", colors: ["#f0375a", "#808080"] %>
+      </div>
+      <div class="title">Beds for COVID cases</div>
+      <div class="box beds">
+        <div>
+          <%= bar_chart @icu_beds, stacked: true, library: {plugins: {legend: {position: "bottom", labels: {usePointStyle: true, boxWidth: 10}}}, scales: {y: {display: true}, x: {display: false}}}, height: "100px", colors: ["#f0375a", "#808080"] %>
+        </div>
+        <div>
+          <%= bar_chart @isolation_beds, stacked: true, library: {plugins: {legend: {position: "bottom", labels: {usePointStyle: true, boxWidth: 10}}}, scales: {y: {display: true}, x: {display: false}}}, height: "100px", colors: ["#f0375a", "#808080"] %>
+        </div>
+        <div>
+          <%= bar_chart @ward_beds, stacked: true, library: {plugins: {legend: {position: "bottom", labels: {usePointStyle: true, boxWidth: 10}}}, scales: {y: {display: true}, x: {display: false}}}, height: "100px", colors: ["#f0375a", "#808080"] %>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+</div>
